@@ -1,4 +1,4 @@
-# Task Management API
+# Task Flow
 
 A Spring Boot REST API for task management (similar to Jira/Trello), demonstrating intermediate Spring Boot concepts including entity relationships, transactional business logic, workflow state machines, and dynamic search with pagination.
 
@@ -33,7 +33,7 @@ This project is a task management system that goes beyond simple CRUD operations
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Java 21**
 - **Spring Boot 3.2.0**
@@ -46,7 +46,7 @@ This project is a task management system that goes beyond simple CRUD operations
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 com.example.taskmanager
@@ -126,7 +126,7 @@ com.example.taskmanager
 
 ---
 
-## 🚀 Setup and Installation
+## Setup and Installation
 
 ### Prerequisites
 
@@ -174,7 +174,7 @@ Access the H2 database console at: **http://localhost:8080/h2-console**
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Users
 
@@ -228,7 +228,7 @@ Access the H2 database console at: **http://localhost:8080/h2-console**
 
 ---
 
-## 📝 Request/Response Examples
+## Request/Response Examples
 
 ### Create User
 
@@ -333,7 +333,7 @@ GET /api/tasks?status=IN_PROGRESS&priority=HIGH&page=0&size=20&sort=dueDate,asc
 
 ---
 
-## 🔒 Business Rules
+## Business Rules
 
 ### 1. Task Creation
 - Project must exist
@@ -371,7 +371,7 @@ GET /api/tasks?status=IN_PROGRESS&priority=HIGH&page=0&size=20&sort=dueDate,asc
 
 ---
 
-## 🔄 Status Workflow
+## Status Workflow
 
 The task status follows a **state machine** pattern with these allowed transitions:
 
@@ -406,7 +406,7 @@ TODO (reopen)
 
 ---
 
-## 🔍 Search and Filtering
+## Search and Filtering
 
 ### Endpoint
 ```
@@ -454,7 +454,7 @@ GET /api/tasks?projectId=1&status=IN_PROGRESS&assigneeId=2&page=0&size=10
 
 ---
 
-## 🎨 Design Decisions
+## Design Decisions
 
 ### 1. Cascade Choices
 
@@ -552,7 +552,7 @@ return taskRepository.findAll(spec, pageable).map(taskMapper::toResponse);
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Manual Testing with cURL
 
@@ -594,7 +594,7 @@ curl -X DELETE http://localhost:8080/api/projects/1
 
 ---
 
-## 📚 Seed Data
+## Seed Data
 
 The application comes with pre-loaded seed data in `data.sql`:
 
@@ -607,7 +607,7 @@ The application comes with pre-loaded seed data in `data.sql`:
 
 ---
 
-## 🎓 Learning Objectives Demonstrated
+## Learning Objectives Demonstrated
 
 This project demonstrates:
 
@@ -622,18 +622,18 @@ This project demonstrates:
 
 ---
 
-## 📄 License
+## License
 
 This project is created for educational purposes as part of a Spring Boot intermediate workshop.
 
 ---
 
-## 👤 Author
+## Author
 
 Created as a demonstration of intermediate Spring Boot development practices.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 This is an educational project. Feel free to fork and experiment!

@@ -25,7 +25,7 @@ public class Project {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "project_key", nullable = false, unique = true)
     private String key;
 
     @Column(columnDefinition = "TEXT")
