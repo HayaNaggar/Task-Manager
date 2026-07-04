@@ -18,4 +18,5 @@ public class ProjectSummaryResponse {
     private long inProgressCount;
     private long inReviewCount;
     private long doneCount;
+    private long overdueCount;
 }

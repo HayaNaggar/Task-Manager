@@ -1,0 +1,70 @@
+{
+  "info": {
+    "name": "Task Flow Acceptance Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"John Doe\",\n  \"email\": \"john.doe@example.com\"\n}"
+        },
+        "url": { "raw": "http://localhost:8081/api/users", "protocol": "http", "host": ["localhost"], "port": "8081", "path": ["api","users"] }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"adminpass\"\n}"
+        },
+        "url": { "raw": "http://localhost:8081/api/auth/login", "protocol": "http", "host": ["localhost"], "port": "8081", "path": ["api","auth","login"] }
+      }
+    },
+    {
+      "name": "Create Project",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Web Application\",\n  \"key\": \"WEB\",\n  \"description\": \"Main web application project\"\n}" },
+        "url": { "raw": "http://localhost:8081/api/projects", "protocol": "http", "host": ["localhost"], "port": "8081", "path": ["api","projects"] }
+      }
+    },
+    {
+      "name": "Create Task",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"title\": \"Setup authentication system\",\n  \"description\": \"Implement JWT authentication\",\n  \"priority\": \"HIGH\",\n  \"reporterId\": 1,\n  \"assigneeId\": 2,\n  \"dueDate\": \"2026-08-01\"\n}" },
+        "url": { "raw": "http://localhost:8081/api/projects/1/tasks", "protocol": "http", "host": ["localhost"], "port": "8081", "path": ["api","projects","1","tasks"] }
+      }
+    },
+    {
+      "name": "Change Task Status",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"status\": \"IN_PROGRESS\"\n}" },
+        "url": { "raw": "http://localhost:8081/api/tasks/1/status", "protocol": "http", "host": ["localhost"], "port": "8081", "path": ["api","tasks","1","status"] }
+      }
+    },
+    {
+      "name": "Search Tasks",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:8081/api/tasks?status=IN_PROGRESS&priority=HIGH&page=0&size=20&sort=dueDate,asc", "protocol": "http", "host": ["localhost"], "port": "8081", "path": ["api","tasks"], "query": [ { "key": "status", "value": "IN_PROGRESS" }, { "key": "priority", "value": "HIGH" } ] }
+      }
+    }
+  ]
+}

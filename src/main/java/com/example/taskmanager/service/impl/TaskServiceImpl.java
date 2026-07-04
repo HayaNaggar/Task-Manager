@@ -134,7 +134,8 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse changeStatus(Long id, TaskStatus newStatus) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.task(id));
-
+        assertCanModify(task);
+        
         TaskStatus currentStatus = task.getStatus();
 
         // Check if transition is allowed
@@ -152,6 +153,8 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.task(id));
 
+        assertCanModify(task);
+
         User assignee = userRepository.findById(assigneeId)
                 .orElseThrow(() -> ResourceNotFoundException.user(assigneeId));
 
@@ -164,7 +167,7 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse unassignTask(Long id) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.task(id));
-
+        assertCanModify(task);
         task.setAssignee(null);
         Task updatedTask = taskRepository.save(task);
         return taskMapper.toResponse(updatedTask);
@@ -174,6 +177,8 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse moveTask(Long id, Long targetProjectId) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.task(id));
+
+        assertCanModify(task);
 
         Project targetProject = projectRepository.findById(targetProjectId)
                 .orElseThrow(() -> ResourceNotFoundException.project(targetProjectId));
@@ -187,6 +192,7 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTask(Long id) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.task(id));
+        assertCanModify(task);
         taskRepository.delete(task);
     }
 
@@ -194,6 +200,8 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse attachLabel(Long taskId, Long labelId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> ResourceNotFoundException.task(taskId));
+
+        assertCanModify(task);
 
         Label label = labelRepository.findById(labelId)
                 .orElseThrow(() -> ResourceNotFoundException.label(labelId));
@@ -213,6 +221,8 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> ResourceNotFoundException.task(taskId));
 
+        assertCanModify(task);
+
         Label label = labelRepository.findById(labelId)
                 .orElseThrow(() -> ResourceNotFoundException.label(labelId));
 
@@ -229,5 +239,30 @@ public class TaskServiceImpl implements TaskService {
 
         Set<TaskStatus> allowedTargets = ALLOWED_TRANSITIONS.get(from);
         return allowedTargets != null && allowedTargets.contains(to);
+    }
+
+    // Authorization helper: only reporter, assignee, or ADMIN can modify
+    private void assertCanModify(Task task) {
+        var auth = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated() || auth.getPrincipal() == null) {
+            throw new com.example.taskmanager.exception.ConflictException("Not authorized");
+        }
+
+        // ADMIN can do anything
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return;
+        }
+
+        String principal = auth.getName(); // we set username as email in JWT
+        com.example.taskmanager.entity.User user = userRepository.findByEmail(principal)
+                .orElseThrow(() -> com.example.taskmanager.exception.ResourceNotFoundException.userByEmail(principal));
+
+        Long uid = user.getId();
+        Long reporterId = task.getReporter() != null ? task.getReporter().getId() : null;
+        Long assigneeId = task.getAssignee() != null ? task.getAssignee().getId() : null;
+
+        if (!uid.equals(reporterId) && !(assigneeId != null && uid.equals(assigneeId))) {
+            throw new com.example.taskmanager.exception.ConflictException("Only reporter or assignee or ADMIN can modify this task");
+        }
     }
 }

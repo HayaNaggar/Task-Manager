@@ -162,11 +162,11 @@ mvn spring-boot:run
 java -jar target/taskmanager-0.0.1-SNAPSHOT.jar
 ```
 
-The application will start on **http://localhost:8080**
+The application will start on **http://localhost:8081**
 
 ### H2 Console
 
-Access the H2 database console at: **http://localhost:8080/h2-console**
+Access the H2 database console at: **http://localhost:8081/h2-console**
 
 - **JDBC URL**: `jdbc:h2:mem:taskdb`
 - **Username**: `sa`
@@ -176,11 +176,18 @@ Access the H2 database console at: **http://localhost:8080/h2-console**
 
 ## API Endpoints
 
+### Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Login and receive JWT token |
+
 ### Users
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/users` | Create a new user |
+| POST | `/api/users` | Create a new user (requires JWT auth) |
 | GET | `/api/users` | Get all users |
 | GET | `/api/users/{id}` | Get user by ID |
 | GET | `/api/users/{id}/tasks` | Get tasks assigned to user |
@@ -236,10 +243,12 @@ Access the H2 database console at: **http://localhost:8080/h2-console**
 ```bash
 POST /api/users
 Content-Type: application/json
+Authorization: Bearer <token>
 
 {
   "fullName": "John Doe",
-  "email": "john.doe@example.com"
+  "email": "john.doe@example.com",
+  "password": "TestPassword123"
 }
 ```
 
@@ -259,6 +268,7 @@ Content-Type: application/json
 ```bash
 POST /api/projects
 Content-Type: application/json
+Authorization: Bearer <token>
 
 {
   "name": "Web Application",
@@ -275,6 +285,7 @@ Content-Type: application/json
 ```bash
 POST /api/projects/1/tasks
 Content-Type: application/json
+Authorization: Bearer <token>
 
 {
   "title": "Setup authentication system",
@@ -294,6 +305,7 @@ Content-Type: application/json
 ```bash
 PATCH /api/tasks/1/status
 Content-Type: application/json
+Authorization: Bearer <token>
 
 {
   "status": "IN_PROGRESS"
@@ -318,6 +330,7 @@ Content-Type: application/json
 **Request:**
 ```bash
 GET /api/tasks?status=IN_PROGRESS&priority=HIGH&page=0&size=20&sort=dueDate,asc
+Authorization: Bearer <token>
 ```
 
 **Response:** `200 OK`
@@ -556,40 +569,59 @@ return taskRepository.findAll(spec, pageable).map(taskMapper::toResponse);
 
 ### Manual Testing with cURL
 
+**Login as admin:**
+```bash
+curl -X POST http://localhost:8081/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@example.com","password":"adminpass"}'
+```
+
+The application includes two pre-seeded users:
+- `admin@example.com` / `adminpass`
+- `member@example.com` / `memberpass`
+
+Use the returned JWT token in the `Authorization` header for any protected endpoint.
+
 **Create a user:**
 ```bash
-curl -X POST http://localhost:8080/api/users \
+curl -X POST http://localhost:8081/api/users \
   -H "Content-Type: application/json" \
-  -d '{"fullName":"Test User","email":"test@example.com"}'
+  -H "Authorization: Bearer <token>" \
+  -d '{"fullName":"Test User","email":"test@example.com","password":"pass1234"}'
 ```
 
 **Get all tasks:**
 ```bash
-curl http://localhost:8080/api/tasks
+curl http://localhost:8081/api/tasks \
+  -H "Authorization: Bearer <token>"
 ```
 
 **Search with filters:**
 ```bash
-curl "http://localhost:8080/api/tasks?status=IN_PROGRESS&priority=HIGH&page=0&size=5"
+curl "http://localhost:8081/api/tasks?status=IN_PROGRESS&priority=HIGH&page=0&size=5" \
+  -H "Authorization: Bearer <token>"
 ```
 
 **Change task status:**
 ```bash
-curl -X PATCH http://localhost:8080/api/tasks/1/status \
+curl -X PATCH http://localhost:8081/api/tasks/1/status \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
   -d '{"status":"IN_PROGRESS"}'
 ```
 
 **Try invalid transition (should return 409):**
 ```bash
-curl -X PATCH http://localhost:8080/api/tasks/1/status \
+curl -X PATCH http://localhost:8081/api/tasks/1/status \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
   -d '{"status":"DONE"}'
 ```
 
 **Delete project with unfinished tasks (should return 409):**
 ```bash
-curl -X DELETE http://localhost:8080/api/projects/1
+curl -X DELETE http://localhost:8081/api/projects/1 \
+  -H "Authorization: Bearer <token>"
 ```
 
 ---

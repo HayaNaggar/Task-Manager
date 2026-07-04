@@ -1,15 +1,56 @@
 const state = {
   projects: [],
   tasks: [],
-  users: []
+  users: [],
+  token: localStorage.getItem('taskflow-token') || null
 };
+
+async function ensureAuthenticated() {
+  if (state.token) {
+    return state.token;
+  }
+
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: 'admin@example.com',
+      password: 'adminpass'
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Authentication failed');
+  }
+
+  const data = await response.json();
+  state.token = data.token;
+  localStorage.setItem('taskflow-token', state.token);
+  return state.token;
+}
+
+async function authFetch(url, options = {}) {
+  const token = await ensureAuthenticated();
+  const headers = new Headers(options.headers || {});
+  headers.set('Authorization', `Bearer ${token}`);
+
+  if (options.body && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  return fetch(url, { ...options, headers });
+}
 
 async function loadDashboard() {
   try {
+    updateAuthStatus('Authenticating…');
+    await ensureAuthenticated();
+    updateAuthStatus('Connected as admin');
+
     const [projectsRes, tasksRes, usersRes] = await Promise.all([
-      fetch('/api/projects?page=0&size=5'),
-      fetch('/api/tasks?page=0&size=8'),
-      fetch('/api/users')
+      authFetch('/api/projects?page=0&size=5'),
+      authFetch('/api/tasks?page=0&size=8'),
+      authFetch('/api/users')
     ]);
 
     if (!projectsRes.ok || !tasksRes.ok || !usersRes.ok) {
@@ -29,6 +70,7 @@ async function loadDashboard() {
     renderTasks();
     renderUsers();
   } catch (error) {
+    updateAuthStatus('Authentication required');
     document.getElementById('projects-list').innerHTML = '<div class="empty-state">Unable to load projects right now.</div>';
     document.getElementById('tasks-list').innerHTML = '<div class="empty-state">Unable to load tasks right now.</div>';
     document.getElementById('users-list').innerHTML = '<div class="empty-state">Unable to load team data right now.</div>';
@@ -114,6 +156,13 @@ function formatPriorityClass(priority) {
 
 function formatLabel(value) {
   return value ? value.replace(/_/g, ' ') : 'Unknown';
+}
+
+function updateAuthStatus(message) {
+  const element = document.getElementById('auth-status');
+  if (element) {
+    element.textContent = message;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', loadDashboard);

@@ -12,4 +12,6 @@ public interface TaskRepository extends JpaRepository<Task, Long>, JpaSpecificat
     List<Task> findByProjectId(Long projectId);
     List<Task> findByAssigneeId(Long assigneeId);
     List<Task> findByReporterId(Long reporterId);
+    List<Task> findByDueDateBeforeAndStatusNot(java.time.LocalDate date, com.example.taskmanager.entity.TaskStatus status);
+    List<Task> findByOverdueTrue();
 }

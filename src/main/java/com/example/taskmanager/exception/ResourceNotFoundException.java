@@ -25,4 +25,8 @@ public class ResourceNotFoundException extends RuntimeException {
     public static ResourceNotFoundException comment(Long id) {
         return new ResourceNotFoundException("Comment not found with id: " + id);
     }
+
+    public static ResourceNotFoundException userByEmail(String email) {
+        return new ResourceNotFoundException("User not found with email: " + email);
+    }
 }

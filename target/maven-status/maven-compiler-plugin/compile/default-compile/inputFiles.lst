@@ -1,8 +1,10 @@
+C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\entity\Role.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\mapper\ProjectMapper.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\service\impl\UserServiceImpl.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\response\LabelResponse.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\service\impl\TaskServiceImpl.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\entity\Priority.java
+C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\scheduled\OverdueTaskScheduler.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\repository\ProjectRepository.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\controller\CommentController.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\controller\ProjectController.java
@@ -10,6 +12,7 @@ C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\service\impl\ProjectServiceImpl.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\service\TaskService.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\response\CommentResponse.java
+C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\startup\InitialUserLoader.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\request\MoveTaskRequest.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\response\ProjectSummaryResponse.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\service\UserService.java
@@ -18,6 +21,7 @@ C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\response\UserResponse.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\exception\InvalidStateTransitionException.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\entity\Project.java
+C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\security\JwtUtil.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\entity\Label.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\controller\UserController.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\exception\ResourceNotFoundException.java
@@ -33,6 +37,7 @@ C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\exception\ConflictException.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\service\CommentService.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\request\UpdateTaskRequest.java
+C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\security\AuthController.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\exception\GlobalExceptionHandler.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\controller\LabelController.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\response\ProjectResponse.java
@@ -43,8 +48,10 @@ C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\entity\TaskStatus.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\mapper\TaskMapper.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\request\CreateProjectRequest.java
+C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\security\JwtAuthenticationFilter.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\dto\request\ChangeStatusRequest.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\service\impl\LabelServiceImpl.java
+C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\security\SecurityConfig.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\mapper\UserMapper.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\repository\CommentRepository.java
 C:\Users\hayaa\source\repos\DS PROJECT 1.2 new\Task1-\src\main\java\com\example\taskmanager\repository\LabelRepository.java

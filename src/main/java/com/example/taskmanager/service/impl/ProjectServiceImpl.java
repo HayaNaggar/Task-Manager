@@ -126,6 +126,7 @@ public class ProjectServiceImpl implements ProjectService {
         long inProgressCount = tasks.stream().filter(t -> t.getStatus() == TaskStatus.IN_PROGRESS).count();
         long inReviewCount = tasks.stream().filter(t -> t.getStatus() == TaskStatus.IN_REVIEW).count();
         long doneCount = tasks.stream().filter(t -> t.getStatus() == TaskStatus.DONE).count();
+        long overdueCount = tasks.stream().filter(t -> t.isOverdue()).count();
 
         return new ProjectSummaryResponse(
                 project.getId(),
@@ -136,6 +137,7 @@ public class ProjectServiceImpl implements ProjectService {
                 inProgressCount,
                 inReviewCount,
                 doneCount
+            , overdueCount
         );
     }
 }
