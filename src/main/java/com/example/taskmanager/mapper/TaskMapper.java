@@ -5,6 +5,8 @@ import com.example.taskmanager.entity.Task;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
+import com.example.taskmanager.dto.response.CommentResponse;
+import com.example.taskmanager.entity.Comment;
 
 @Component
 public class TaskMapper {
@@ -57,6 +59,22 @@ public class TaskMapper {
         // Comment count
         if (task.getComments() != null) {
             response.setCommentCount(task.getComments().size());
+            // map comments for detailed view
+            response.setComments(task.getComments().stream()
+                    .map(c -> {
+                        CommentResponse cr = new CommentResponse();
+                        cr.setId(c.getId());
+                        cr.setBody(c.getBody());
+                        cr.setCreatedAt(c.getCreatedAt());
+                        cr.setTaskId(task.getId());
+                        if (c.getAuthor() != null) {
+                            cr.setAuthorId(c.getAuthor().getId());
+                            cr.setAuthorName(c.getAuthor().getFullName());
+                        }
+                        return cr;
+                    })
+                    .collect(Collectors.toList())
+            );
         }
 
         return response;

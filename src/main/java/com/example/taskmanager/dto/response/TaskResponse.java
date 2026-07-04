@@ -38,4 +38,5 @@ public class TaskResponse {
 
     private List<LabelResponse> labels;
     private Integer commentCount;
+    private List<CommentResponse> comments;
 }

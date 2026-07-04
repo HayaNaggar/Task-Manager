@@ -12,8 +12,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UpdateTaskRequest {
 
+    @jakarta.validation.constraints.Size(min = 3, message = "Title must be at least 3 characters")
     private String title;
+
     private String description;
+
     private Priority priority;
+
     private LocalDate dueDate;
 }

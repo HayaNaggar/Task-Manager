@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateProjectRequest {
 
+    @jakarta.validation.constraints.NotBlank(message = "Project name cannot be blank")
     private String name;
+
     private String description;
 }
