@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Flow · Tasks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-mark">TF</div>
+          <div>
+            <h1>Task Flow</h1>
+            <p>Project operations center</p>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="/dashboard.html">Dashboard</a>
+          <a href="/projects.html">Projects</a>
+          <a class="active" href="/tasks.html">Tasks</a>
+          <a href="/">Sign out</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Tasks</p>
+            <h2>Work queue</h2>
+          </div>
+          <button id="logout-btn" class="secondary-btn" type="button">Sign out</button>
+        </header>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Overview</p>
+              <h3>All tasks</h3>
+            </div>
+          </div>
+          <div id="tasks-page-list" class="list-stack"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

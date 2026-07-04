@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Task Flow Dashboard</title>
+    <title>Task Flow · Sign in</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,122 +13,33 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="page-shell">
-      <aside class="sidebar">
+    <div class="auth-shell">
+      <div class="auth-card">
         <div class="brand-block">
           <div class="brand-mark">TF</div>
           <div>
             <h1>Task Flow</h1>
-            <p>Project Operations Center</p>
+            <p>Project operations workspace</p>
           </div>
         </div>
 
-        <nav class="nav-links">
-          <a class="active" href="#overview">Overview</a>
-          <a href="#projects">Projects</a>
-          <a href="#tasks">Tasks</a>
-          <a href="#team">Team</a>
-        </nav>
+        <h2>Sign in to continue</h2>
+        <p class="auth-copy">Use the seeded admin account to access the dashboard, projects, and tasks.</p>
 
-        <div class="sidebar-card">
-          <h3>System health</h3>
-          <div class="metric-row">
-            <span>API</span>
-            <strong>Online</strong>
-          </div>
-          <div class="metric-row">
-            <span>Data</span>
-            <strong>Live</strong>
-          </div>
-        </div>
-      </aside>
+        <form id="login-form" class="auth-form">
+          <label>
+            Email
+            <input id="email" name="email" type="email" value="admin@example.com" required />
+          </label>
+          <label>
+            Password
+            <input id="password" name="password" type="password" value="adminpass" required />
+          </label>
+          <button class="primary-btn" type="submit">Sign in</button>
+        </form>
 
-      <main class="main-content">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow">Workspace overview</p>
-            <h2>Keep delivery aligned and visible</h2>
-            <p id="auth-status" class="eyebrow">Connecting…</p>
-          </div>
-          <button class="primary-btn">Create task</button>
-        </header>
-
-        <section id="overview" class="hero-card">
-          <div>
-            <p class="eyebrow">Executive summary</p>
-            <h3>Command center for your task management workflow.</h3>
-            <p>
-              Track projects, priorities, and team activity from a single, polished workspace.
-            </p>
-          </div>
-          <div class="hero-stats">
-            <div class="tiny-stat">
-              <span id="summary-projects">0</span>
-              <small>Projects</small>
-            </div>
-            <div class="tiny-stat">
-              <span id="summary-tasks">0</span>
-              <small>Tasks</small>
-            </div>
-            <div class="tiny-stat">
-              <span id="summary-users">0</span>
-              <small>Users</small>
-            </div>
-          </div>
-        </section>
-
-        <section class="stats-grid">
-          <article class="stat-card accent-blue">
-            <p>Open work</p>
-            <h3 id="open-tasks">0</h3>
-            <span>Tasks currently in progress</span>
-          </article>
-          <article class="stat-card accent-green">
-            <p>Completed</p>
-            <h3 id="done-tasks">0</h3>
-            <span>Tasks moved to done</span>
-          </article>
-          <article class="stat-card accent-purple">
-            <p>High priority</p>
-            <h3 id="high-priority">0</h3>
-            <span>Urgent work requiring focus</span>
-          </article>
-        </section>
-
-        <section class="content-grid">
-          <article id="projects" class="panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Projects</p>
-                <h3>Active initiatives</h3>
-              </div>
-              <a href="#">View all</a>
-            </div>
-            <div id="projects-list" class="list-stack"></div>
-          </article>
-
-          <article id="tasks" class="panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Tasks</p>
-                <h3>Latest activity</h3>
-              </div>
-              <a href="#">Refresh</a>
-            </div>
-            <div id="tasks-list" class="list-stack"></div>
-          </article>
-        </section>
-
-        <section id="team" class="panel team-panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">Team</p>
-              <h3>People and ownership</h3>
-            </div>
-          </div>
-          <div id="users-list" class="user-grid"></div>
-        </section>
-      </main>
+        <p id="auth-message" class="auth-message">Demo credentials: admin@example.com / adminpass</p>
+      </div>
     </div>
 
     <script src="/app.js"></script>
