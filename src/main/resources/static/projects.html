@@ -27,6 +27,7 @@
           <a href="/dashboard.html">Dashboard</a>
           <a class="active" href="/projects.html">Projects</a>
           <a href="/tasks.html">Tasks</a>
+          <a href="/labels.html">Labels</a>
           <a href="/">Sign out</a>
         </nav>
       </aside>
@@ -43,11 +44,29 @@
         <section class="panel">
           <div class="panel-header">
             <div>
+              <p class="eyebrow">New</p>
+              <h3>Create a project</h3>
+            </div>
+          </div>
+          <form id="create-project-form" class="field-grid">
+            <div class="field"><label>Name</label><input type="text" name="name" required /></div>
+            <div class="field"><label>Key (2-10 uppercase letters)</label><input type="text" name="key" required pattern="[A-Za-z]{2,10}" /></div>
+            <div class="field-grid single" style="grid-column: 1 / -1;">
+              <div class="field"><label>Description</label><textarea name="description"></textarea></div>
+            </div>
+            <div class="field" style="align-self:end;"><button type="submit" class="primary-btn">Create project</button></div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
               <p class="eyebrow">Overview</p>
               <h3>All projects</h3>
             </div>
           </div>
           <div id="projects-page-list" class="list-stack"></div>
+          <div id="projects-pagination" class="pagination-bar"></div>
         </section>
       </main>
     </div>

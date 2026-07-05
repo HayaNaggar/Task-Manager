@@ -27,6 +27,7 @@
           <a class="active" href="/dashboard.html">Dashboard</a>
           <a href="/projects.html">Projects</a>
           <a href="/tasks.html">Tasks</a>
+          <a href="/labels.html">Labels</a>
           <a href="/">Sign out</a>
         </nav>
 
@@ -127,6 +128,16 @@
             </div>
           </div>
           <div id="users-list" class="user-grid"></div>
+
+          <div class="editable-block">
+            <h4 style="margin: 0 0 10px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted);">Add a team member</h4>
+            <form id="create-user-form" class="field-grid">
+              <div class="field"><label>Full name</label><input type="text" name="fullName" required /></div>
+              <div class="field"><label>Email</label><input type="email" name="email" required /></div>
+              <div class="field"><label>Password</label><input type="password" name="password" required /></div>
+              <div class="field" style="align-self:end;"><button type="submit" class="primary-btn">Create user</button></div>
+            </form>
+          </div>
         </section>
       </main>
     </div>

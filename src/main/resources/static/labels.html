@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Task Flow · Tasks</title>
+    <title>Task Flow · Labels</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -26,8 +26,8 @@
         <nav class="nav-links">
           <a href="/dashboard.html">Dashboard</a>
           <a href="/projects.html">Projects</a>
-          <a class="active" href="/tasks.html">Tasks</a>
-          <a href="/labels.html">Labels</a>
+          <a href="/tasks.html">Tasks</a>
+          <a class="active" href="/labels.html">Labels</a>
           <a href="/">Sign out</a>
         </nav>
       </aside>
@@ -35,26 +35,37 @@
       <main class="main-content">
         <header class="topbar">
           <div>
-            <p class="eyebrow">Tasks</p>
-            <h2>Work queue</h2>
+            <p class="eyebrow">Labels</p>
+            <h2>Reusable tags</h2>
           </div>
-          <div class="badge-row">
-            <button id="new-task-btn" class="primary-btn" type="button">New task</button>
-            <button id="logout-btn" class="secondary-btn" type="button">Sign out</button>
-          </div>
+          <button id="logout-btn" class="secondary-btn" type="button">Sign out</button>
         </header>
 
-        <div id="task-filter-bar" class="filter-bar"></div>
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">New</p>
+              <h3>Create a label</h3>
+            </div>
+          </div>
+          <form id="create-label-form" class="field-grid">
+            <div class="field"><label>Name</label><input type="text" name="name" required /></div>
+            <div class="field">
+              <label>Color</label>
+              <input type="color" name="color" value="#5b7cff" required style="height: 44px; padding: 4px;" />
+            </div>
+            <div class="field" style="align-self:end;"><button type="submit" class="primary-btn">Create label</button></div>
+          </form>
+        </section>
 
         <section class="panel">
           <div class="panel-header">
             <div>
               <p class="eyebrow">Overview</p>
-              <h3>All tasks</h3>
+              <h3>All labels</h3>
             </div>
           </div>
-          <div id="tasks-page-list" class="list-stack"></div>
-          <div id="tasks-pagination" class="pagination-bar"></div>
+          <div id="labels-page-list" class="list-stack"></div>
         </section>
       </main>
     </div>

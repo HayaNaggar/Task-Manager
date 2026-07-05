@@ -27,6 +27,7 @@
           <a href="/dashboard.html">Dashboard</a>
           <a href="/projects.html">Projects</a>
           <a class="active" href="/tasks.html">Tasks</a>
+          <a href="/labels.html">Labels</a>
           <a href="/">Sign out</a>
         </nav>
       </aside>
@@ -37,8 +38,13 @@
             <p class="eyebrow">Tasks</p>
             <h2>Work queue</h2>
           </div>
-          <button id="logout-btn" class="secondary-btn" type="button">Sign out</button>
+          <div class="badge-row">
+            <button id="new-task-btn" class="primary-btn" type="button">New task</button>
+            <button id="logout-btn" class="secondary-btn" type="button">Sign out</button>
+          </div>
         </header>
+
+        <div id="task-filter-bar" class="filter-bar"></div>
 
         <section class="panel">
           <div class="panel-header">
@@ -48,6 +54,7 @@
             </div>
           </div>
           <div id="tasks-page-list" class="list-stack"></div>
+          <div id="tasks-pagination" class="pagination-bar"></div>
         </section>
       </main>
     </div>
