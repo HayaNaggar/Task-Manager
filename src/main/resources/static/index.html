@@ -24,21 +24,21 @@
         </div>
 
         <h2>Sign in to continue</h2>
-        <p class="auth-copy">Use the seeded admin account to access the dashboard, projects, and tasks.</p>
+        <p class="auth-copy">Enter your Task Flow credentials to access the dashboard, projects, and tasks.</p>
 
         <form id="login-form" class="auth-form">
           <label>
             Email
-            <input id="email" name="email" type="email" value="admin@example.com" required />
+            <input id="email" name="email" type="email" required autocomplete="email" />
           </label>
           <label>
             Password
-            <input id="password" name="password" type="password" value="adminpass" required />
+            <input id="password" name="password" type="password" required autocomplete="current-password" />
           </label>
           <button class="primary-btn" type="submit">Sign in</button>
         </form>
 
-        <p id="auth-message" class="auth-message">Demo credentials: admin@example.com / adminpass</p>
+        <p id="auth-message" class="auth-message"></p>
       </div>
     </div>
 

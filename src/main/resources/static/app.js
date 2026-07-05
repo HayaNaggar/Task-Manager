@@ -41,6 +41,18 @@ async function apiRequest(path, options = {}) {
 
   const response = await fetch(`${API_BASE}${path}`, { ...options, headers });
 
+  if (response.status === 401 || response.status === 403) {
+    // Token missing/expired/invalid: clear it and bounce to login exactly once.
+    // The sessionStorage guard prevents a redirect loop if the server keeps
+    // rejecting requests for reasons unrelated to the token itself.
+    localStorage.removeItem('taskflow-token');
+    state.token = null;
+    if (getCurrentPage() !== 'login' && !sessionStorage.getItem('tf-auth-redirect')) {
+      sessionStorage.setItem('tf-auth-redirect', '1');
+      window.location.replace('/');
+    }
+  }
+
   if (response.status === 204) return null;
 
   let data = null;
@@ -72,11 +84,13 @@ async function login(email, password) {
   const data = await response.json();
   state.token = data.token;
   localStorage.setItem('taskflow-token', state.token);
+  sessionStorage.removeItem('tf-auth-redirect');
   return state.token;
 }
 
 function logout() {
   localStorage.removeItem('taskflow-token');
+  sessionStorage.removeItem('tf-auth-redirect');
   state.token = null;
   window.location.href = '/';
 }
@@ -627,13 +641,14 @@ function renderFilterBar() {
       <select id="filter-size">
         ${[5, 10, 20, 50].map((s) => `<option value="${s}" ${Number(f.size) === s ? 'selected' : ''}>${s}</option>`).join('')}
       </select>
-    </div>
-    <div class="field" style="align-self:end;">
-      <div class="action-row">
-        <button class="btn-sm accent" data-action="apply-filters">Apply</button>
-        <button class="btn-sm" data-action="reset-filters">Reset</button>
-      </div>
     </div>`;
+
+  const actionsBar = document.getElementById('task-filter-actions');
+  if (actionsBar) {
+    actionsBar.innerHTML = `
+      <button class="btn-sm" data-action="reset-filters">Reset</button>
+      <button class="btn-sm accent" data-action="apply-filters">Apply</button>`;
+  }
 }
 
 function readFiltersFromForm() {
@@ -1067,7 +1082,7 @@ function attachGlobalEvents() {
   const newTaskBtn = document.getElementById('new-task-btn');
   if (newTaskBtn) newTaskBtn.addEventListener('click', openCreateTaskModal);
 
-  const applyFiltersBtnHolder = document.getElementById('task-filter-bar');
+  const applyFiltersBtnHolder = document.getElementById('task-filter-actions');
   if (applyFiltersBtnHolder) {
     applyFiltersBtnHolder.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-action]');
@@ -1126,6 +1141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const page = getCurrentPage();
 
   if (page === 'login') {
+    sessionStorage.removeItem('tf-auth-redirect');
     if (state.token) window.location.replace('/dashboard.html');
     return;
   }
