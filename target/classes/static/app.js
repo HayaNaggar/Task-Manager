@@ -6,19 +6,30 @@ const state = {
 };
 
 function getCurrentPage() {
-  const path = window.location.pathname.replace(/\/+$/, '');
-  if (path === '/dashboard.html' || path === '/dashboard' || path === '') {
-    return 'dashboard';
-  }
-  if (path === '/projects.html' || path === '/projects') {
-    return 'projects';
-  }
-  if (path === '/tasks.html' || path === '/tasks') {
-    return 'tasks';
-  }
-  return 'login';
-}
+  const path = window.location.pathname.replace(/\/+$/, "");
 
+  // Login page
+  if (path === "" || path === "/" || path === "/index.html") {
+    return "login";
+  }
+
+  // Dashboard
+  if (path === "/dashboard.html" || path === "/dashboard") {
+    return "dashboard";
+  }
+
+  // Projects
+  if (path === "/projects.html" || path === "/projects") {
+    return "projects";
+  }
+
+  // Tasks
+  if (path === "/tasks.html" || path === "/tasks") {
+    return "tasks";
+  }
+
+  return "login";
+}
 async function login(email, password) {
   const response = await fetch('/api/auth/login', {
     method: 'POST',
